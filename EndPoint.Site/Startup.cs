@@ -1,4 +1,6 @@
 using KalaMarket.Application.Interfaces.Contexts;
+using KalaMarket.Application.Services.Users.Queries.GetRoles;
+using KalaMarket.Application.Services.Users.Queries.GetUsers;
 using KalaMarket.Persistence.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,7 +28,12 @@ namespace EndPoint.Site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddScoped<IDataBaseContext,DataBaseContext>();
+            services.AddScoped<IGetUsersService, GetUsersService>();
+            services.AddScoped<IGetRolesService, GetRolesService>();
+
+
             string connectionString = "Data Source = .;Initial Catalog= KalaMarket_DB ; Integrated Security=True;";
             services.AddEntityFrameworkSqlServer().AddDbContext<DataBaseContext>(option => option.UseSqlServer(connectionString));
             services.AddControllersWithViews();
