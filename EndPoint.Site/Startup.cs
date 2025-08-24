@@ -1,18 +1,27 @@
 using KalaMarket.Application.Interfaces.Contexts;
+using KalaMarket.Application.Interfaces.FacadPatterns;
+using KalaMarket.Application.Services.Common.Queries.GetCategory;
+using KalaMarket.Application.Services.Common.Queries.GetMenuItem;
+using KalaMarket.Application.Services.Products.FacadPattern;
+using KalaMarket.Application.Services.Users.Commands.EditUser;
+using KalaMarket.Application.Services.Users.Commands.RegisterUser;
+using KalaMarket.Application.Services.Users.Commands.RemoveUser;
+using KalaMarket.Application.Services.Users.Commands.UserLogin;
+using KalaMarket.Application.Services.Users.Commands.UserSatusChange;
 using KalaMarket.Application.Services.Users.Queries.GetRoles;
 using KalaMarket.Application.Services.Users.Queries.GetUsers;
 using KalaMarket.Persistence.Contexts;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace EndPoint.Site
 {
@@ -28,10 +37,31 @@ namespace EndPoint.Site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(options =>
+            {
+                options.LoginPath = new PathString("/");
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
+            });
 
-            services.AddScoped<IDataBaseContext,DataBaseContext>();
+            services.AddScoped<IDataBaseContext, DataBaseContext>();
             services.AddScoped<IGetUsersService, GetUsersService>();
             services.AddScoped<IGetRolesService, GetRolesService>();
+            services.AddScoped<IRegisterUserService, RegisterUserService>();
+            services.AddScoped<IRemoveUserService, RemoveUserService>();
+            services.AddScoped<IUserLoginService, UserLoginService>();
+            services.AddScoped<IUserSatusChangeService, UserSatusChangeService>();
+            services.AddScoped<IEditUserService, EditUserService>();
+
+            services.AddScoped<IProductFacad, ProductFacad>();
+
+            services.AddScoped<IGetMenuItemService, GetMenuItemService>();
+            services.AddScoped<IGetCategoryService, GetCategoryService>();
+
 
 
             string connectionString = "Data Source = .;Initial Catalog= KalaMarket_DB ; Integrated Security=True;";

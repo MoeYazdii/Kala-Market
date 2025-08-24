@@ -1,6 +1,6 @@
 ﻿namespace KalaMarket.Application.Services.Users.Commands.RegisterUser
 {
-    public class RoleInRegesterServiceUserDto
+    public class RoleInRegesterUserDto
     {
         public long Id { get; set; }
     }

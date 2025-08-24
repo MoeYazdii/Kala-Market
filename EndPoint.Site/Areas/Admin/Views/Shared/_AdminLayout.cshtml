@@ -3,13 +3,6 @@
 }
 
 <!DOCTYPE html>
-
-
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
 <html lang="en" class="loading">
 
 <!-- Mirrored from pixinvent.com/demo/convex-bootstrap-admin-dashboard-template/demo-1/grids.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 20 Sep 2018 14:54:38 GMT -->
@@ -63,7 +56,7 @@
                         <li class="has-sub nav-item">
                             <a href="#"><i class="icon-users"></i><span data-i18n="" class="menu-title">مدیریت کاربران</span></a>
                             <ul class="menu-content">
-                                <li class="active">
+                                <li>
                                     <a href="~/admin/users/index" class="menu-item">لیست کاربران</a>
                                 </li>
                                 <li>
@@ -72,8 +65,28 @@
                             </ul>
                         </li>
 
-
-
+                        <li class="has-sub nav-item">
+                            <a href="#"><i class="icon-crop"></i><span data-i18n="" class="menu-title">  دسته بندی ها </span></a>
+                            <ul class="menu-content">
+                                <li>
+                                    <a href="~/admin/categories/" class="menu-item">دسته بندی ها</a>
+                                </li>
+                                <li>
+                                    <a href="~/admin/categories/addnewcategory" class="menu-item">افزودن دسته بندی جدید *</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-sub nav-item">
+                            <a href="#"><i class="icon-crop"></i><span data-i18n="" class="menu-title"> محصولات </span></a>
+                            <ul class="menu-content">
+                                <li>
+                                    <a href="~/admin/products/" class="menu-item">لیست محصولات</a>
+                                </li>
+                                <li>
+                                    <a href="~/admin/products/addnewprodutc" class="menu-item">افزودن محصول جدید *</a>
+                                </li>
+                            </ul>
+                        </li>
 
                     </ul>
                 </div>
@@ -418,6 +431,9 @@
     <!-- END CONVEX JS-->
     <!-- BEGIN PAGE LEVEL JS-->
     <!-- END PAGE LEVEL JS-->
+    @RenderSection("Scripts", false)
+
+    @RenderSection("Modals", false)
 </body>
 
 <!-- Mirrored from pixinvent.com/demo/convex-bootstrap-admin-dashboard-template/demo-1/grids.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 20 Sep 2018 14:54:38 GMT -->

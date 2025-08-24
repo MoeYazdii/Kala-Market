@@ -1,9 +1,10 @@
-﻿namespace KalaMarket.Domain.Entites.Users
+﻿using KalaMarket.Domain.Entities.Commons;
+
+namespace KalaMarket.Domain.Entites.Users
 {
-    public class UserInRole
+    public class UserInRole : BaseEntity
     {
         public long Id { get; set; }
-
         public virtual User User { get; set; }
         public long UserId { get; set; }
 
