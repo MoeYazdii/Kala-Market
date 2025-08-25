@@ -1,4 +1,4 @@
-using KalaMarket.Application.Interfaces.Contexts;
+﻿using KalaMarket.Application.Interfaces.Contexts;
 using KalaMarket.Application.Interfaces.FacadPatterns;
 using KalaMarket.Application.Services.Common.Queries.GetCategory;
 using KalaMarket.Application.Services.Common.Queries.GetMenuItem;
@@ -87,8 +87,8 @@ namespace EndPoint.Site
 
             app.UseRouting();
 
+            app.UseAuthentication(); // ✅ must be here
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

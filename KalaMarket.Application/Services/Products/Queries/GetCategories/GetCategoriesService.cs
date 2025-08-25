@@ -31,7 +31,7 @@ namespace KalaMarket.Application.Services.Products.Queries.GetCategories
                    {
                        Id = p.ParentCategory.Id,
                        name = p.ParentCategory.Name,
-                   }
+                   }  
                    : null,
                    HasChild = p.SubCategories.Count() > 0 ? true : false,
                }).ToList();
