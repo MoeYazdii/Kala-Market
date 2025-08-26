@@ -16,7 +16,7 @@
                 @foreach (var itemChild in item.Child)
                 {
                     <li class="menu-mega-item menu-item-type-mega-menu item-small">
-                        <a href="~/products/index?CatId=@itemChild.CatId" class="mega-menu-link">
+                        <a href="~/products/index?Page=1&PageSize=20&CatId=@itemChild.CatId" class="mega-menu-link">
                             @itemChild.Name
                         </a>
                     </li>

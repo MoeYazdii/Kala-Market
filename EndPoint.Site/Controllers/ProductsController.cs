@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KalaMarket.Application.Interfaces.FacadPatterns;
+using KalaMarket.Application.Services.Products.Queries.GetProductForSite;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EndPoint.Site.Controllers
@@ -15,9 +16,9 @@ namespace EndPoint.Site.Controllers
         {
             _productFacad = productFacad;
         }
-        public IActionResult Index(string searchKey, long? CatId = null,int page=1)
+        public IActionResult Index(Ordering ordering,string searchKey, long? CatId = null,int page=1, int pageSize = 20)
         {
-            return View(_productFacad.GetProductForSiteService.Execute(searchKey,page,CatId).Data);
+            return View(_productFacad.GetProductForSiteService.Execute(ordering,searchKey,page, pageSize, CatId).Data);
         }
 
 

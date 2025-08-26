@@ -3,6 +3,7 @@ using KalaMarket.Common;
 using KalaMarket.Common.Dto;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace KalaMarket.Application.Services.Products.Queries.GetProductForSite
@@ -15,7 +16,7 @@ namespace KalaMarket.Application.Services.Products.Queries.GetProductForSite
         {
             _context = context;
         }
-        public ResultDto<ResultProductForSiteDto> Execute(string searchKey,int Page, long? CatId)
+        public ResultDto<ResultProductForSiteDto> Execute(Ordering ordering, string searchKey,int Page,int pageSize, long? CatId)
         {
             int totalRow = 0;
             var productsQuery = _context.Products
@@ -26,6 +27,33 @@ namespace KalaMarket.Application.Services.Products.Queries.GetProductForSite
                 productsQuery = productsQuery.Where(p => p.CategoryId == CatId || p.Category.ParentCategoryId == CatId).AsQueryable();
             }
 
+            switch (ordering)
+            {
+                case Ordering.NotOrder:
+                    productsQuery = productsQuery.OrderByDescending(p => p.Id).AsQueryable();
+                    break;
+                case Ordering.MostVisited:
+                    productsQuery = productsQuery.OrderByDescending(p => p.ViewCount).AsQueryable();
+                    break;
+                case Ordering.Bestselling:
+                    //not complete
+                    productsQuery = productsQuery.OrderByDescending(p => p.Id).AsQueryable();
+                    break;
+                case Ordering.MostPopular:
+                    //not complete
+                    productsQuery = productsQuery.OrderByDescending(p => p.Id).AsQueryable();
+                    break;
+                case Ordering.theNewest:
+                    productsQuery = productsQuery.OrderByDescending(p => p.Id).AsQueryable();
+                    break;
+                case Ordering.Cheapest:
+                    productsQuery = productsQuery.OrderBy(p => p.Price).AsQueryable();
+                    break;
+                case Ordering.theMostExpensive:
+                    productsQuery = productsQuery.OrderByDescending(p => p.Price).AsQueryable();
+                    break;
+            }
+
             if (!string.IsNullOrWhiteSpace(searchKey))
             {
                 var sk = searchKey;
@@ -33,7 +61,7 @@ namespace KalaMarket.Application.Services.Products.Queries.GetProductForSite
                 || p.Brand.Contains(searchKey)).AsQueryable();
             }
 
-            var product = productsQuery.ToPaged(Page,5,out totalRow);
+            var product = productsQuery.ToPaged(Page,pageSize,out totalRow);
 
             Random rd = new Random();
             return new ResultDto<ResultProductForSiteDto>

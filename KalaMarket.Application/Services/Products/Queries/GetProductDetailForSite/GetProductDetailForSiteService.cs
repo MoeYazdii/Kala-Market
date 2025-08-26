@@ -27,6 +27,8 @@ namespace KalaMarket.Application.Services.Products.Queries.GetProductDetailForSi
                 throw new Exception("Product Not Found.....");
             }
 
+            Product.ViewCount++;
+            _context.SaveChanges();
             return new ResultDto<ProductDetailForSiteDto>()
             {
                 Data = new ProductDetailForSiteDto
