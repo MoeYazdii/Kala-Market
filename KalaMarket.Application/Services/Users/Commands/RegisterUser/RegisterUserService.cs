@@ -1,7 +1,7 @@
 ﻿using KalaMarket.Application.Interfaces.Contexts;
 using KalaMarket.Common;
 using KalaMarket.Common.Dto;
-using KalaMarket.Domain.Entites.Users;
+using KalaMarket.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

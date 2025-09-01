@@ -1,6 +1,9 @@
 ﻿using KalaMarket.Application.Interfaces.Contexts;
 using KalaMarket.Common.UserRole;
-using KalaMarket.Domain.Entites.Users;
+using KalaMarket.Domain.Entities.Users;
+using KalaMarket.Domain.Entities.Carts;
+using KalaMarket.Domain.Entities.Finances;
+using KalaMarket.Domain.Entities.HomePages;
 using KalaMarket.Domain.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,7 +27,11 @@ namespace KalaMarket.Persistence.Contexts
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImages> ProductImages { get; set; }
         public DbSet<ProductFeatures> ProductFeatures { get; set; }
-
+        public DbSet<Slider> Sliders { get; set; }
+        public DbSet<HomePageImages> HomePageImages { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<RequestPay> RequestPays { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -49,6 +56,11 @@ namespace KalaMarket.Persistence.Contexts
             modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<ProductImages>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<ProductFeatures>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Slider>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<HomePageImages>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Cart>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<CartItem>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<RequestPay>().HasQueryFilter(p => !p.IsRemoved);
         }
 
         private void SeedData(ModelBuilder modelBuilder)

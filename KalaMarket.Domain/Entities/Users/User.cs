@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KalaMarket.Domain.Entites.Users
+namespace KalaMarket.Domain.Entities.Users
 {
     public class User : BaseEntity
     {

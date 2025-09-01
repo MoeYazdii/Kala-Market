@@ -1,6 +1,6 @@
 ﻿using KalaMarket.Domain.Entities.Commons;
 
-namespace KalaMarket.Domain.Entites.Users
+namespace KalaMarket.Domain.Entities.Users
 {
     public class UserInRole : BaseEntity
     {

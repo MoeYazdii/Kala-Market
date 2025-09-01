@@ -1,7 +1,7 @@
 ﻿using KalaMarket.Domain.Entities.Commons;
 using System.Collections.Generic;
 
-namespace KalaMarket.Domain.Entites.Users
+namespace KalaMarket.Domain.Entities.Users
 {
     public class Role : BaseEntity
     {

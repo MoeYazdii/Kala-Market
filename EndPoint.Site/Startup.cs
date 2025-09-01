@@ -1,7 +1,14 @@
 ﻿using KalaMarket.Application.Interfaces.Contexts;
 using KalaMarket.Application.Interfaces.FacadPatterns;
+using KalaMarket.Application.Services.Carts;
 using KalaMarket.Application.Services.Common.Queries.GetCategory;
+using KalaMarket.Application.Services.Common.Queries.GetHomePageImages;
 using KalaMarket.Application.Services.Common.Queries.GetMenuItem;
+using KalaMarket.Application.Services.Common.Queries.GetSlider;
+using KalaMarket.Application.Services.Fainances.Commands.AddRequestPay;
+using KalaMarket.Application.Services.Fainances.Queries.GetRequestPayService;
+using KalaMarket.Application.Services.HomePages.AddHomePageImages;
+using KalaMarket.Application.Services.HomePages.AddNewSlider;
 using KalaMarket.Application.Services.Products.FacadPattern;
 using KalaMarket.Application.Services.Users.Commands.EditUser;
 using KalaMarket.Application.Services.Users.Commands.RegisterUser;
@@ -61,6 +68,15 @@ namespace EndPoint.Site
 
             services.AddScoped<IGetMenuItemService, GetMenuItemService>();
             services.AddScoped<IGetCategoryService, GetCategoryService>();
+            services.AddScoped<IAddNewSliderService, AddNewSliderService>();
+            services.AddScoped<IGetSliderService, GetSliderService>();
+            services.AddScoped<IAddHomePageImagesService, AddHomePageImagesService>();
+            services.AddScoped<IGetHomePageImagesService, GetHomePageImagesService>();
+
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IAddRequestPayService, AddRequestPayService>();
+            services.AddScoped<IGetRequestPayService, GetRequestPayService>();
+
 
 
 

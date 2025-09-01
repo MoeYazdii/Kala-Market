@@ -54,4 +54,4 @@ TestResult.xml
 nunit-*.xml
 .vs
 
-/EndPoint.Site/wwwroot/images/ProductImages
+/EndPoint.Site/wwwroot/images/
