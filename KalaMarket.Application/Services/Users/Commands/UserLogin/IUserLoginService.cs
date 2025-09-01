@@ -1,7 +1,7 @@
 ﻿using KalaMarket.Application.Interfaces.Contexts;
 using KalaMarket.Common;
 using KalaMarket.Common.Dto;
-using KalaMarket.Domain.Entities;
+using KalaMarket.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -43,7 +43,7 @@ namespace KalaMarket.Application.Services.Users.Commands.UserLogin
 
             var user = _context.Users
                 .Include(p => p.UserInRoles)
-                .ThenInclude(p=>p.Role)
+                .ThenInclude(p => p.Role)
                 .Where(p => p.Email.Equals(Username)
             && p.IsActive == true)
             .FirstOrDefault();
@@ -77,10 +77,10 @@ namespace KalaMarket.Application.Services.Users.Commands.UserLogin
             }
 
 
-            var roles = "";
+            List<string> roles = new List<string>();
             foreach (var item in user.UserInRoles)
             {
-                roles += $"{item.Role.Name}";
+                roles.Add(item.Role.Name);
             }
 
 
@@ -103,7 +103,7 @@ namespace KalaMarket.Application.Services.Users.Commands.UserLogin
     public class ResultUserloginDto
     {
         public long UserId { get; set; }
-        public string Roles { get; set; }
+        public List<string> Roles { get; set; }
         public string Name { get; set; }
     }
 }

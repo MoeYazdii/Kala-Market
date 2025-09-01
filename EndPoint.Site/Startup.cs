@@ -17,6 +17,7 @@ using KalaMarket.Application.Services.Users.Commands.UserLogin;
 using KalaMarket.Application.Services.Users.Commands.UserSatusChange;
 using KalaMarket.Application.Services.Users.Queries.GetRoles;
 using KalaMarket.Application.Services.Users.Queries.GetUsers;
+using KalaMarket.Common.UserRole;
 using KalaMarket.Persistence.Contexts;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -44,6 +45,14 @@ namespace EndPoint.Site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(UserRoles.Admin, policy => policy.RequireRole(UserRoles.Admin));
+                options.AddPolicy(UserRoles.Customer, policy => policy.RequireRole(UserRoles.Customer));
+                options.AddPolicy(UserRoles.Operator, policy => policy.RequireRole(UserRoles.Operator));
+            });
+
             services.AddAuthentication(options =>
             {
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -51,10 +60,9 @@ namespace EndPoint.Site
                 options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             }).AddCookie(options =>
             {
-                options.LoginPath = new PathString("/");
+                options.LoginPath = new PathString("/Authentication/Signin");
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
             });
-
             services.AddScoped<IDataBaseContext, DataBaseContext>();
             services.AddScoped<IGetUsersService, GetUsersService>();
             services.AddScoped<IGetRolesService, GetRolesService>();
@@ -64,8 +72,11 @@ namespace EndPoint.Site
             services.AddScoped<IUserSatusChangeService, UserSatusChangeService>();
             services.AddScoped<IEditUserService, EditUserService>();
 
+            //FacadeInject
             services.AddScoped<IProductFacad, ProductFacad>();
 
+
+            //------------------
             services.AddScoped<IGetMenuItemService, GetMenuItemService>();
             services.AddScoped<IGetCategoryService, GetCategoryService>();
             services.AddScoped<IAddNewSliderService, AddNewSliderService>();
@@ -75,7 +86,7 @@ namespace EndPoint.Site
 
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IAddRequestPayService, AddRequestPayService>();
-            services.AddScoped<IGetRequestPayService, GetRequestPayService>();
+
 
 
 

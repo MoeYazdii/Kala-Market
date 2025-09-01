@@ -114,7 +114,7 @@
                                         </a>
                                     </li>
 
-                                   @* @await Component.InvokeAsync("Cart") *@
+                                     @await Component.InvokeAsync("Cart")  
                                 </ul>
                             </div>
                         </div>
@@ -488,4 +488,5 @@
 <script src="~/SiteTemplate/assets/js/vendor/lightgallery-all.js"></script>
 <!-- main js---------------------------------------------------->
 <script src="~/SiteTemplate/assets/js/main.js"></script>
+@RenderSection("Scripts", false)
 </html>

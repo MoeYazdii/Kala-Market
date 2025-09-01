@@ -3,6 +3,7 @@ using KalaMarket.Common.Dto;
 using KalaMarket.Domain.Entities.Carts;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace KalaMarket.Application.Services.Carts
@@ -82,12 +83,26 @@ namespace KalaMarket.Application.Services.Carts
                     .OrderByDescending(p => p.Id)
                     .FirstOrDefault();
 
-                if(UserId != null)
+                if(cart == null)
+                {
+                    return new ResultDto<CartDto>()
+                    {
+                        Data = new CartDto()
+                        {
+                            CartItems = new List<CartItemDto>()
+                        },
+                        IsSuccess=false,
+                    };
+                }
+              
+                if (UserId != null)
                 {
                     var user = _context.Users.Find(UserId);
                     cart.User = user;
                     _context.SaveChanges();
                 }
+
+
 
                 return new ResultDto<CartDto>()
                 {

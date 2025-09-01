@@ -4,14 +4,16 @@ using KalaMarket.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KalaMarket.Persistence.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250901152403_Fix-Cart")]
+    partial class FixCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -383,21 +385,21 @@ namespace KalaMarket.Persistence.Migrations
                         new
                         {
                             Id = 1L,
-                            InsertTime = new DateTime(2025, 9, 1, 20, 13, 49, 928, DateTimeKind.Local).AddTicks(3766),
+                            InsertTime = new DateTime(2025, 9, 1, 18, 54, 3, 71, DateTimeKind.Local).AddTicks(9657),
                             IsRemoved = false,
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2L,
-                            InsertTime = new DateTime(2025, 9, 1, 20, 13, 49, 929, DateTimeKind.Local).AddTicks(8343),
+                            InsertTime = new DateTime(2025, 9, 1, 18, 54, 3, 73, DateTimeKind.Local).AddTicks(3860),
                             IsRemoved = false,
                             Name = "Operator"
                         },
                         new
                         {
                             Id = 3L,
-                            InsertTime = new DateTime(2025, 9, 1, 20, 13, 49, 929, DateTimeKind.Local).AddTicks(8429),
+                            InsertTime = new DateTime(2025, 9, 1, 18, 54, 3, 73, DateTimeKind.Local).AddTicks(3946),
                             IsRemoved = false,
                             Name = "Customer"
                         });

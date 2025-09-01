@@ -25,7 +25,7 @@ namespace EndPoint.Site.Utilities
             {
                 return null;
             }
-            return  cookieValue ;
+            return cookieValue;
         }
 
         public void Remove(HttpContext context, string token)
@@ -36,11 +36,11 @@ namespace EndPoint.Site.Utilities
             }
         }
 
- 
+
         public Guid GetBrowserId(HttpContext context)
         {
-          string browserId=   GetValue(context, "BowserId");
-            if(browserId== null)
+            string browserId = GetValue(context, "BowserId");
+            if (browserId == null)
             {
                 string value = Guid.NewGuid().ToString();
                 Add(context, "BowserId", value);
@@ -48,7 +48,7 @@ namespace EndPoint.Site.Utilities
             }
             Guid guidBowser;
             Guid.TryParse(browserId, out guidBowser);
-            return guidBowser ;
+            return guidBowser;
         }
         private CookieOptions getCookieOptions(HttpContext context)
         {

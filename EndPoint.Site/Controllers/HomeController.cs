@@ -4,6 +4,7 @@ using KalaMarket.Application.Interfaces.FacadPatterns;
 using KalaMarket.Application.Services.Common.Queries.GetHomePageImages;
 using KalaMarket.Application.Services.Common.Queries.GetSlider;
 using KalaMarket.Application.Services.Products.Queries.GetProductForSite;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

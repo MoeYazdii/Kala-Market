@@ -1,18 +1,19 @@
-﻿using System;
+﻿using KalaMarket.Application.Services.Carts;
+using KalaMarket.Domain.Entities.Carts;
+using EndPoint.Site.Utilities;
+using KalaMarket.Application.Services.Carts;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using KalaMarket.Application.Services.Carts;
-using KalaMarket.Domain.Entities.Carts;
-using EndPoint.Site.Utilities;
-using Microsoft.AspNetCore.Mvc;
 
 namespace EndPoint.Site.Controllers
 {
     public class CartController : Controller
     {
         private readonly ICartService _cartService;
-        private readonly CookiesManeger cookiesManeger ;
+        private readonly CookiesManeger cookiesManeger;
 
         public CartController(ICartService cartService)
         {
@@ -22,18 +23,18 @@ namespace EndPoint.Site.Controllers
 
         public IActionResult Index()
         {
-           var userId=  ClaimUtility.GetUserId(User);
+            var userId = ClaimUtility.GetUserId(User);
 
-           var resultGetLst=  _cartService.GetMyCart(cookiesManeger.GetBrowserId(HttpContext), userId);
+            var resultGetLst = _cartService.GetMyCart(cookiesManeger.GetBrowserId(HttpContext), userId);
 
             return View(resultGetLst.Data);
         }
 
         public IActionResult AddToCart(long ProductId)
         {
-           
 
-           var resultAdd= _cartService.AddToCart(ProductId, cookiesManeger.GetBrowserId(HttpContext));
+
+            var resultAdd = _cartService.AddToCart(ProductId, cookiesManeger.GetBrowserId(HttpContext));
 
             return RedirectToAction("Index");
         }
@@ -43,8 +44,8 @@ namespace EndPoint.Site.Controllers
         {
             _cartService.Add(CartItemId);
             return RedirectToAction("Index");
-        }  
-        
+        }
+
         public IActionResult LowOff(long CartItemId)
         {
             _cartService.LowOff(CartItemId);

@@ -12,11 +12,20 @@ namespace EndPoint.Site.Utilities
         {
             try
             {
-            var claimsIdentity = User.Identity as ClaimsIdentity;
-            long userId = long.Parse(claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value);
-            return userId;
+                var claimsIdentity = User.Identity as ClaimsIdentity;
+
+                if (claimsIdentity.FindFirst(ClaimTypes.NameIdentifier) != null)
+                {
+                    long userId = long.Parse(claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value);
+                    return userId;
+                }
+                else
+                {
+                    return null;
+                }
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return null;
