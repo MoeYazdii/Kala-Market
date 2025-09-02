@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using KalaMarket.Domain.Entities.HomePages;
 using KalaMarket.Domain.Entities.Carts;
 using KalaMarket.Domain.Entities.Finances;
+using KalaMarket.Domain.Entities.Orders;
 
 namespace KalaMarket.Application.Interfaces.Contexts
 {
@@ -23,6 +24,8 @@ namespace KalaMarket.Application.Interfaces.Contexts
         DbSet<Cart> Carts { get; set; }
         DbSet<CartItem> CartItems { get; set; }
         DbSet<RequestPay> RequestPays { get; set; }
+        DbSet<Order> Orders { get; set; }
+        DbSet<OrderDetail> OrderDetails { get; set; }
 
         int SaveChanges(bool acceptAllChangesOnSuccess);
         int SaveChanges();

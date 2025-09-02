@@ -1,10 +1,11 @@
 ﻿using KalaMarket.Application.Interfaces.Contexts;
 using KalaMarket.Common.UserRole;
-using KalaMarket.Domain.Entities.Users;
 using KalaMarket.Domain.Entities.Carts;
 using KalaMarket.Domain.Entities.Finances;
 using KalaMarket.Domain.Entities.HomePages;
+using KalaMarket.Domain.Entities.Orders;
 using KalaMarket.Domain.Entities.Products;
+using KalaMarket.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,9 +33,19 @@ namespace KalaMarket.Persistence.Contexts
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<RequestPay> RequestPays { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Order>()
+                .HasOne(p => p.User)
+                .WithMany(p => p.Orders)
+                .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Order>()
+                .HasOne(p => p.RequestPay)
+                .WithMany(p => p.Orders)
+                .OnDelete(DeleteBehavior.NoAction);
             //Seed Data
             SeedData(modelBuilder);
 
@@ -61,6 +72,8 @@ namespace KalaMarket.Persistence.Contexts
             modelBuilder.Entity<Cart>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<CartItem>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<RequestPay>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Order>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<OrderDetail>().HasQueryFilter(p => !p.IsRemoved);
         }
 
         private void SeedData(ModelBuilder modelBuilder)

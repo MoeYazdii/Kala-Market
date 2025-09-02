@@ -110,6 +110,7 @@ namespace KalaMarket.Application.Services.Carts
                     {
                         ProductCount = cart.CartItems.Count(),
                         SumAmount = cart.CartItems.Sum(p => p.Price * p.Count),
+                        CartId = cart.Id,
                         CartItems = cart.CartItems.Select(p => new CartItemDto
                         {
                             Count = p.Count,

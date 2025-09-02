@@ -9,6 +9,7 @@ using KalaMarket.Application.Services.Fainances.Commands.AddRequestPay;
 using KalaMarket.Application.Services.Fainances.Queries.GetRequestPayService;
 using KalaMarket.Application.Services.HomePages.AddHomePageImages;
 using KalaMarket.Application.Services.HomePages.AddNewSlider;
+using KalaMarket.Application.Services.Orders.Commands.AddNewOrder;
 using KalaMarket.Application.Services.Products.FacadPattern;
 using KalaMarket.Application.Services.Users.Commands.EditUser;
 using KalaMarket.Application.Services.Users.Commands.RegisterUser;
@@ -87,9 +88,10 @@ namespace EndPoint.Site
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IAddRequestPayService, AddRequestPayService>();
             services.AddScoped<IGetRequestPayService, GetRequestPayService>();
+            services.AddScoped<IAddNewOrderService, AddNewOrderService>();
+            
 
-            //for zarinpal test
-
+            //zarinpal
             services.AddControllersWithViews();
             services.AddHttpClient(); // required for PaymentController
 

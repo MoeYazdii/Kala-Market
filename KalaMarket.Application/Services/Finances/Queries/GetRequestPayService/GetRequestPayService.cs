@@ -23,6 +23,7 @@ namespace KalaMarket.Application.Services.Fainances.Queries.GetRequestPayService
                     Data = new RequestPayDto()
                     {
                         Amount = requestPay.Amount,
+                        Id = requestPay.Id,
                     }
                 };
             }

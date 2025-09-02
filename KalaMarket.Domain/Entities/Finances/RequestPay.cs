@@ -1,4 +1,5 @@
 ﻿using KalaMarket.Domain.Entities.Commons;
+using KalaMarket.Domain.Entities.Orders;
 using KalaMarket.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
@@ -18,5 +19,6 @@ namespace KalaMarket.Domain.Entities.Finances
         public DateTime? PayDate { get; set; }
         public string Authority { get; set; }
         public long RefId { get; set; } = 0;
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
