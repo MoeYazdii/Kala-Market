@@ -86,9 +86,12 @@ namespace EndPoint.Site
 
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IAddRequestPayService, AddRequestPayService>();
+            services.AddScoped<IGetRequestPayService, GetRequestPayService>();
 
+            //for zarinpal test
 
-
+            services.AddControllersWithViews();
+            services.AddHttpClient(); // required for PaymentController
 
 
             string connectionString = "Data Source = .;Initial Catalog= KalaMarket_DB ; Integrated Security=True;";
@@ -116,6 +119,8 @@ namespace EndPoint.Site
 
             app.UseAuthentication(); // ✅ must be here
             app.UseAuthorization();
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

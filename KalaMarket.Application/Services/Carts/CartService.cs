@@ -162,7 +162,6 @@ namespace KalaMarket.Application.Services.Carts
                     IsSuccess = true,
                     Message = "محصول از سبد خرید شما حذف شد"
                 };
-
             }
             else
             {
@@ -173,6 +172,5 @@ namespace KalaMarket.Application.Services.Carts
                 };
             }
         }
-
     }
 }

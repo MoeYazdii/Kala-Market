@@ -1,97 +1,89 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using KalaMarket.Application.Services.Carts;
-//using KalaMarket.Application.Services.Fainances.Commands.AddRequestPay;
-//using KalaMarket.Application.Services.Fainances.Queries.GetRequestPayService;
-//using KalaMarket.Domain.Entities.Carts;
-//using KalaMarket.Common.Dto;
-//using EndPoint.Site.Utilities;
-//using Microsoft.AspNetCore.Authorization;
-//using Microsoft.AspNetCore.Mvc;
-//using ZarinPal.Class;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
-//namespace EndPoint.Site.Controllers
-//{
-//    [Authorize]
-//    public class PayController : Controller
-//    {
-//        private readonly IAddRequestPayService _addRequestPayService;
-//        private readonly ICartService _cartService;
-//        private readonly CookiesManeger _cookiesManeger;
-//        private readonly Payment _payment;
-//        private readonly Authority _authority;
-//        private readonly Transactions _transactions;
-//        private readonly IGetRequestPayService _getRequestPayService;
-//        public PayController(IAddRequestPayService addRequestPayService, ICartService cartService
-//            , IGetRequestPayService getRequestPayService
+namespace EndPoint.Site.Controllers
+{
+    public class PayController : Controller
+    {
+        private readonly HttpClient _httpClient;
+        private const string MerchantId = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"; // sandbox merchant ID
+        private const string ApiBase = "https://sandbox.zarinpal.com/pg/v4/payment/";
 
+        public PayController(IHttpClientFactory httpClientFactory)
+        {
+            _httpClient = httpClientFactory.CreateClient();
+        }
 
-//             )
-//        {
-//            _addRequestPayService = addRequestPayService;
-//            _cartService = cartService;
-//            _cookiesManeger = new CookiesManeger();
-//            var expose = new Expose();
-//            _payment = expose.CreatePayment();
-//            _authority = expose.CreateAuthority();
-//            _transactions = expose.CreateTransactions();
-//            _getRequestPayService = getRequestPayService;
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var amount = 1000; // test amount
+            var callbackUrl = Url.Action("Verify", "Payment", null, Request.Scheme);
 
-//        }
-//        public async Task<IActionResult> Index()
-//        {
-//            long? UserId = ClaimUtility.GetUserId(User);
-//            var cart = _cartService.GetMyCart(_cookiesManeger.GetBrowserId(HttpContext), UserId);
-//            if (cart.Data.SumAmount > 0)
-//            {
-//                var requestPay = _addRequestPayService.Execute(cart.Data.SumAmount, UserId.Value);
-//                ارسال در گاه پرداخت
+            var payload = new
+            {
+                merchant_id = MerchantId,
+                amount = amount,
+                callback_url = callbackUrl,
+                description = "Test Payment"
+            };
 
+            var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
-//                var result = await _payment.Request(new DtoRequest()
-//                {
-//                    Mobile = "09121112222",
-//                    CallbackUrl = $"https://localhost:44339/Pay/Verify?guid={requestPay.Data.guid}",
-//                    Description = "پرداخت فاکتور شماره:" + requestPay.Data.RequestPayId,
-//                    Email = requestPay.Data.Email,
-//                    Amount = requestPay.Data.Amount,
-//                    MerchantId = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
-//                }, ZarinPal.Class.Payment.Mode.sandbox);
-//                return Redirect($"https://sandbox.zarinpal.com/pg/StartPay/{result.Authority}");
+            var response = await _httpClient.PostAsync(ApiBase + "request.json", content);
+            var body = await response.Content.ReadAsStringAsync();
 
+            if (!response.IsSuccessStatusCode)
+            {
+                ViewBag.Error = body;
+                return View("Error");
+            }
 
-//            }
-//            else
-//            {
-//                return RedirectToAction("Index", "Cart");
-//            }
+            using var doc = JsonDocument.Parse(body);
+            var data = doc.RootElement.GetProperty("data");
 
-//        }
+            if (data.TryGetProperty("authority", out var authority))
+            {
+                return Redirect($"https://sandbox.zarinpal.com/pg/StartPay/{authority.GetString()}");
+            }
 
-//        public async Task<IActionResult> Verify(Guid guid, string authority, string status)
-//        {
+            ViewBag.Error = body;
+            return View("Error");
+        }
 
-//            var requestPay = _getRequestPayService.Execute(guid);
+        [HttpGet]
+        public async Task<IActionResult> Verify(string authority, string status)
+        {
+            if (status != "OK")
+                return View("Failed");
 
-//            var verification = await _payment.Verification(new DtoVerification
-//            {
-//                Amount = requestPay.Data.Amount,
-//                MerchantId = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-//                Authority = authority
-//            }, Payment.Mode.sandbox);
+            var payload = new
+            {
+                merchant_id = MerchantId,
+                authority = authority,
+                amount = 1000
+            };
 
-//            if (verification.Status == 100)
-//            {
+            var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
-//            }
-//            else
-//            {
+            var response = await _httpClient.PostAsync(ApiBase + "verify.json", content);
+            var body = await response.Content.ReadAsStringAsync();
 
-//            }
+            using var doc = JsonDocument.Parse(body);
+            var data = doc.RootElement.GetProperty("data");
 
-//            return View();
-//        }
-//    }
-//}
+            if (data.TryGetProperty("ref_id", out var refId))
+            {
+                ViewBag.RefId = refId.GetInt64();
+                return View("Success");
+            }
+
+            return View("Failed");
+        }
+    }
+}
