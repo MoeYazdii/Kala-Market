@@ -1,4 +1,5 @@
-﻿@using KalaMarket.Common;
+﻿@addTagHelper *, LazZiya.TagHelpers
+@using KalaMarket.Common;
 @using KalaMarket.Application.Services.Orders.Query.GetOrdersForAdmin;
 @model ResultGetOrderDto
 @{
@@ -53,7 +54,7 @@
                                                 {
                                                     <tr role="row" class="odd">
                                                         <td class="sorting_1">@item.OrderId</td>
-                                                        <td>@item.InsetTime</td>
+                                                        <td>@item.InsetTime.ToShamsi()</td>
                                                         <td>@item.RequestId</td>
                                                         <td>@item.BuyerName</td>
                                                         <td>@item.BuyerEmail</td>
@@ -73,6 +74,7 @@
                                             </tbody>
                                         </table>
                                     </div>
+
                                     <div class="  text-center">
                                         <paging total-records="Model.RowCount"
                                                 page-no="Model.CurrentPage"

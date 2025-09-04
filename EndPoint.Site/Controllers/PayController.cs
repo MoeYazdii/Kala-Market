@@ -3,7 +3,6 @@ using KalaMarket.Application.Services.Carts;
 using KalaMarket.Application.Services.Fainances.Commands.AddRequestPay;
 using KalaMarket.Application.Services.Fainances.Queries.GetRequestPayService;
 using KalaMarket.Application.Services.Orders.Commands.AddNewOrder;
-using KalaMarket.Domain.Entities.Finances;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -75,7 +74,7 @@ namespace EndPoint.Site.Controllers
             {
                 return Redirect($"https://sandbox.zarinpal.com/pg/StartPay/{authority.GetString()}");
             }
-
+            
             ViewBag.Error = body;
             return View("PaymentError");
         }
@@ -84,6 +83,7 @@ namespace EndPoint.Site.Controllers
         public async Task<IActionResult> Verify(Guid guid, string authority, string status)
         {
             var requestPay = _getRequestPayService.Execute(guid);
+            
             if (status != "OK")
                 return View("PaymentError");
 
@@ -105,7 +105,6 @@ namespace EndPoint.Site.Controllers
             
             if (data.TryGetProperty("ref_id", out var refId))
             {
-                ViewBag.RefId = refId.GetInt64();
                 long? UserId = ClaimUtility.GetUserId(User);
                 var cart = _cartService.GetMyCart(_cookiesManeger.GetBrowserId(HttpContext), UserId);
                 _addNewOrderService.Execute(new RequestAddNewOrderServiceDto
@@ -113,18 +112,9 @@ namespace EndPoint.Site.Controllers
                     CartId= cart.Data.CartId,
                     UserId=UserId.Value,
                     RequestPayId = requestPay.Data.Id,
+                    RefId = refId.GetInt64(),
+                    Authority = authority.ToString(),
                 });
-
-
-
-
-
-
-
-
-
-
-
                 return RedirectToAction("Index","Orders");
             }
 

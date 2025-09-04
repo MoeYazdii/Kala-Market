@@ -130,7 +130,7 @@ namespace EndPoint.Site.Controllers
                 var properties = new AuthenticationProperties()
                 {
                     IsPersistent = true,
-                    ExpiresUtc = DateTime.Now.AddDays(5),
+                    ExpiresUtc = DateTime.Now.AddDays(25),
                 };
                 HttpContext.SignInAsync(principal, properties);
 

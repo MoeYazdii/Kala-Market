@@ -7,6 +7,7 @@ using KalaMarket.Application.Services.Common.Queries.GetMenuItem;
 using KalaMarket.Application.Services.Common.Queries.GetSlider;
 using KalaMarket.Application.Services.Fainances.Commands.AddRequestPay;
 using KalaMarket.Application.Services.Fainances.Queries.GetRequestPayService;
+using KalaMarket.Application.Services.Finances.Queries.GetRequestPayForAdmin;
 using KalaMarket.Application.Services.HomePages.AddHomePageImages;
 using KalaMarket.Application.Services.HomePages.AddNewSlider;
 using KalaMarket.Application.Services.Orders.Commands.AddNewOrder;
@@ -65,6 +66,7 @@ namespace EndPoint.Site
             {
                 options.LoginPath = new PathString("/Authentication/Signin");
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
+                options.AccessDeniedPath = new PathString("/Authentication/Signin");
             });
             services.AddScoped<IDataBaseContext, DataBaseContext>();
             services.AddScoped<IGetUsersService, GetUsersService>();
@@ -93,6 +95,7 @@ namespace EndPoint.Site
             services.AddScoped<IAddNewOrderService, AddNewOrderService>();
             services.AddScoped<IGetUserOrdersService, GetUserOrdersService>();
             services.AddScoped<IGetOrdersForAdminService, GetOrdersForAdminService>();
+            services.AddScoped<IGetRequestPayForAdminService, GetRequestPayForAdminService>();
             
 
             //zarinpal

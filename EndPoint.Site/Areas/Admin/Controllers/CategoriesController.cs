@@ -1,10 +1,12 @@
 ﻿using KalaMarket.Application.Interfaces.FacadPatterns;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
+    [Authorize(Roles = "Operator")]
     public class CategoriesController : Controller
     {
 

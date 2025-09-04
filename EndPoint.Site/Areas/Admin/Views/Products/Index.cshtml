@@ -51,7 +51,16 @@
                                                         <td>@item.Brand</td>
                                                         <td>@item.Price.ToString("n0")</td>
                                                         <td>@item.Inventory</td>
-                                                        <td>@item.Displayed</td>
+                                                        <td>
+                                                            @if (item.Displayed)
+                                                            {
+                                                                <span>✅</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>❌</span>
+                                                            }
+                                                        </td>
                                                         <td>
                                                             <a class="btn btn-danger">حذف</a>
                                                             <a href="~/admin/products/detail/@item.Id" class="btn btn-info">اطلاعات بیشتر</a>

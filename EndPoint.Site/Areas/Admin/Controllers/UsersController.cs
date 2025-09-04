@@ -4,6 +4,7 @@ using KalaMarket.Application.Services.Users.Commands.RemoveUser;
 using KalaMarket.Application.Services.Users.Commands.UserSatusChange;
 using KalaMarket.Application.Services.Users.Queries.GetRoles;
 using KalaMarket.Application.Services.Users.Queries.GetUsers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Collections.Generic;
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles ="Admin")]
     public class UsersController : Controller
     {
         private readonly IGetUsersService _getUsersService;
@@ -35,13 +37,14 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         }
 
 
-        public IActionResult Index(string serchkey, int page = 1)
+        public IActionResult Index(string serchkey, int page = 1 , int pagesize = 5)
         {
             return View(_getUsersService.Execute(new RequestGetUserDto
             {
                 Page = page,
+                PageSize = pagesize,
                 SearchKey = serchkey,
-            }));
+            }).Data);
         }
 
 

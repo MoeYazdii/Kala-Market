@@ -34,7 +34,8 @@ namespace KalaMarket.Application.Services.Orders.Commands.AddNewOrder
 
             requestPay.IsPay = true;
             requestPay.PayDate = DateTime.Now;
-
+            requestPay.RefId = request.RefId;
+            requestPay.Authority = request.Authority;
             cart.Finished = true;
 
             Order order = new Order()
@@ -72,6 +73,8 @@ namespace KalaMarket.Application.Services.Orders.Commands.AddNewOrder
 
     public class RequestAddNewOrderServiceDto
     {
+        public long RefId { get; set; } = 0;
+        public string Authority { get; set; }
         public long CartId { get; set; }
         public long RequestPayId { get; set; }
         public long UserId { get; set; }
