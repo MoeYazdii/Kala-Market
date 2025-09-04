@@ -1,15 +1,17 @@
-﻿using System;
+﻿using KalaMarket.Application.Services.HomePages.AddHomePageImages;
+using KalaMarket.Domain.Entities.HomePages;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using KalaMarket.Application.Services.HomePages.AddHomePageImages;
-using KalaMarket.Domain.Entities.HomePages;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class HomePageImagesController : Controller
     {
         private readonly IAddHomePageImagesService _addHomePageImagesService;

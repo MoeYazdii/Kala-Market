@@ -1,9 +1,11 @@
 ﻿using KalaMarket.Application.Services.Finances.Queries.GetRequestPayForAdmin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin , Operator")]
     public class RequestPayController : Controller
     {
         private readonly IGetRequestPayForAdminService _getRequestPayForAdminService;

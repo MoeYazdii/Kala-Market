@@ -2,6 +2,7 @@
 using KalaMarket.Application.Services.Products.Commands.AddNewProduct;
 using KalaMarket.Application.Services.Products.Queries.GetProductForAdmin.GetProductForAdminSearch;
 using KalaMarket.Application.Services.Users.Queries.GetUsers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ using System.Collections.Generic;
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin , Operator")]
     public class ProductsController : Controller
     {
 

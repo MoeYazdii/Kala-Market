@@ -22,6 +22,7 @@ using KalaMarket.Application.Services.Users.Commands.UserSatusChange;
 using KalaMarket.Application.Services.Users.Queries.GetRoles;
 using KalaMarket.Application.Services.Users.Queries.GetUsers;
 using KalaMarket.Common.UserRole;
+using KalaMarket.Domain.Entities.Users;
 using KalaMarket.Persistence.Contexts;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
