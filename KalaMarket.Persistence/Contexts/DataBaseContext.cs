@@ -1,4 +1,5 @@
 ﻿using KalaMarket.Application.Interfaces.Contexts;
+using KalaMarket.Common;
 using KalaMarket.Common.UserRole;
 using KalaMarket.Domain.Entities.Carts;
 using KalaMarket.Domain.Entities.Finances;
@@ -6,6 +7,7 @@ using KalaMarket.Domain.Entities.HomePages;
 using KalaMarket.Domain.Entities.Orders;
 using KalaMarket.Domain.Entities.Products;
 using KalaMarket.Domain.Entities.Users;
+
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -78,10 +80,9 @@ namespace KalaMarket.Persistence.Contexts
 
         private void SeedData(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Role>().HasData(new Role { Id = 1, Name = nameof(UserRoles.Admin) });
-            modelBuilder.Entity<Role>().HasData(new Role { Id = 2, Name = nameof(UserRoles.Operator) });
-            modelBuilder.Entity<Role>().HasData(new Role { Id = 3, Name = nameof(UserRoles.Customer) });
+            modelBuilder.Entity<Role>().HasData(new Role { Id = 1, Name = nameof(UserRoles.Admin), IsRemoved = false });
+            modelBuilder.Entity<Role>().HasData(new Role { Id = 2, Name = nameof(UserRoles.Operator), IsRemoved = false });
+            modelBuilder.Entity<Role>().HasData(new Role { Id = 3, Name = nameof(UserRoles.Customer) , IsRemoved =false });
         }
-
     }
 }

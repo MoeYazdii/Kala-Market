@@ -131,7 +131,7 @@
                                 </li>
                             </ul>
                         </li>
-                        @if (ClaimUtility.GetRoles(User).Where(p => p == "Operator").Count() >= 1)
+                        @if (ClaimUtility.GetRoles(User).Where(p => p == "Operator" || p == "Admin").Count() >= 1)
                         {
                             <li class="has-sub nav-item">
                                 <a href="#"><i class="icon-crop"></i><span data-i18n="" class="menu-title"> مدیریت فاکتورها </span></a>
