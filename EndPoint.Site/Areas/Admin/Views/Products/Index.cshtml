@@ -1,6 +1,6 @@
 ﻿@addTagHelper *, LazZiya.TagHelpers
 @using KalaMarket.Application.Services.Products.Queries.GetProductForAdmin;
-@model  ProductForAdminDto;
+@model ProductForAdminDto;
 
 @{
     ViewData["Title"] = "لیست محصولات";
@@ -19,6 +19,14 @@
                         <div class="card-body collapse show">
                             <div class="card-block card-dashboard">
                                 <p class="card-text">لیست محصولات</p>
+                                <form method="get" class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                    <fieldset class="form-group">
+                                        <input type="text" class="form-control" name="searchkey">
+                                        <br />
+                                        <button class="btn btn-success">جستجو</button>
+                                    </fieldset>
+                                </form>
+
                                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                                     <div class="col-sm-12">
                                         <table class="table table-striped table-bordered zero-configuration dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">

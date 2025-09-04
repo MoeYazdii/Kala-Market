@@ -1,0 +1,18 @@
+<svg width="300" height="80" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="80" fill="#000000" rx="8" ry="8"/>
+  
+  <!-- آیکون فروشگاه -->
+  <g transform="translate(20, 20)">
+    <path d="M8 8 L32 8 L30 18 L10 18 Z" fill="none" stroke="#ffffff" stroke-width="2"/>
+    <circle cx="15" cy="25" r="2" fill="#ffffff"/>
+    <circle cx="25" cy="25" r="2" fill="#ffffff"/>
+    <path d="M10 18 L12 30 L28 30" fill="none" stroke="#ffffff" stroke-width="2"/>
+    <path d="M8 8 L6 2 L2 2" fill="none" stroke="#ffffff" stroke-width="2"/>
+  </g>
+  
+  <!-- متن کالا مارکت -->
+  <text x="180" y="35" font-family="Vazir, Roboto, 'Segoe UI', sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">کالا مارکت</text>
+  
+  <!-- متن ادمین -->
+  <text x="180" y="58" font-family="Vazir, Roboto, 'Segoe UI', sans-serif" font-size="16" fill="#ffffff" text-anchor="middle">ادمین</text>
+</svg>

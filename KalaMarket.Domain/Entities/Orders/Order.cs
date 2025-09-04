@@ -17,11 +17,6 @@ namespace KalaMarket.Domain.Entities.Orders
         public long RequestPayId { get; set; }
         public OrderState OrderState { get; set; }
         public string Address { get; set; }
-    }
-    public enum OrderState
-    {
-        Processing = 0,
-        Cancelled = 1,
-        Delivered = 2,
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

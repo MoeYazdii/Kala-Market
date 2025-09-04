@@ -10,6 +10,8 @@ using KalaMarket.Application.Services.Fainances.Queries.GetRequestPayService;
 using KalaMarket.Application.Services.HomePages.AddHomePageImages;
 using KalaMarket.Application.Services.HomePages.AddNewSlider;
 using KalaMarket.Application.Services.Orders.Commands.AddNewOrder;
+using KalaMarket.Application.Services.Orders.Query.GetOrdersForAdmin;
+using KalaMarket.Application.Services.Orders.Query.GetUserOrders;
 using KalaMarket.Application.Services.Products.FacadPattern;
 using KalaMarket.Application.Services.Users.Commands.EditUser;
 using KalaMarket.Application.Services.Users.Commands.RegisterUser;
@@ -89,6 +91,8 @@ namespace EndPoint.Site
             services.AddScoped<IAddRequestPayService, AddRequestPayService>();
             services.AddScoped<IGetRequestPayService, GetRequestPayService>();
             services.AddScoped<IAddNewOrderService, AddNewOrderService>();
+            services.AddScoped<IGetUserOrdersService, GetUserOrdersService>();
+            services.AddScoped<IGetOrdersForAdminService, GetOrdersForAdminService>();
             
 
             //zarinpal
@@ -131,7 +135,7 @@ namespace EndPoint.Site
 
                 endpoints.MapControllerRoute(
                     name: "areas",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=products}/{action=Index}/{id?}");
             });
 
         }
