@@ -1,0 +1,68 @@
+﻿@using KalaMarket.Application.Services.Common.Queries.GetMenuItem
+@model List<MenuItemDto>
+@{
+    Layout = null;
+}
+@foreach (var item in Model)
+{
+    @*     <li id="nav-menu-item" class="menu-item nav-overlay">
+        <a href="#" class="current-link-menu">
+            @item.Name
+        </a>
+        @if (item.Child.Count() > 0)
+        {
+            <ul class="sub-menu is-mega-menu-small">
+
+                @foreach (var itemChild in item.Child)
+                {
+                    <li class="menu-mega-item menu-item-type-mega-menu item-small">
+                        <a href="~/products/index?Page=1&PageSize=20&CatId=@itemChild.CatId" class="mega-menu-link">
+                            @itemChild.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </li> *@
+}
+
+
+<ul class="nav-categories ul-base" id="accordionExample">
+    @foreach (var item in Model)
+    {
+        var collapseId = "collapse" + item.CatId;
+
+        <li>
+            <!-- Parent category toggle -->
+            <a class="collapsed"
+               type="button"
+               data-toggle="collapse"
+               data-target="#@collapseId"
+               aria-expanded="false"
+               aria-controls="@collapseId">
+                <i class="mdi mdi-chevron-down"></i>@item.Name
+            </a>
+
+            @if (item.Child.Any())
+            {
+                <div id="@collapseId"
+                     class="collapse"
+                     aria-labelledby="heading@item.CatId"
+                     data-parent="#accordionExample">
+                    <ul>
+                        @foreach (var itemChild in item.Child)
+                        {
+                            <li class="">
+                                <!-- REAL LINK (no collapse attributes) -->
+                                <a href="~/products/index?Page=1&PageSize=20&CatId=@itemChild.CatId"
+                                   class="category-level-2">
+                                    @itemChild.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </li>
+    }
+</ul>

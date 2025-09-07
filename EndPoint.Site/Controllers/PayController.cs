@@ -51,7 +51,7 @@ namespace EndPoint.Site.Controllers
             {
                 merchant_id = MerchantId,
                 amount = requestPay.Data.Amount,
-                callback_url = $"https://localhost:44388/Pay/Verify?guid={requestPay.Data.guid}",
+                callback_url = $"https://kalamarket.somee.com/Pay/Verify?guid={requestPay.Data.guid}",
                 description = "پرداخت فاکتور شماره:" + requestPay.Data.RequestPayId
             };
 

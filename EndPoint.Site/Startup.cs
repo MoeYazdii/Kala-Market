@@ -104,7 +104,9 @@ namespace EndPoint.Site
             services.AddHttpClient(); // required for PaymentController
 
 
-            string connectionString = "Data Source = .;Initial Catalog= KalaMarket_DB ; Integrated Security=True;";
+            // For Local Test :
+           // string connectionString = "Data Source = .;Initial Catalog= KalaMarket_DB ; Integrated Security=True;";
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddEntityFrameworkSqlServer().AddDbContext<DataBaseContext>(option => option.UseSqlServer(connectionString));
             services.AddControllersWithViews();
         }

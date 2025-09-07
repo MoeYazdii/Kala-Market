@@ -38,8 +38,11 @@ namespace EndPoint.Site.Controllers
             {
                 Sliders = _getSliderService.Execute().Data,
                 PageImages = _homePageImagesService.Execute().Data,
-                Camera = _productFacad.GetProductForSiteService.Execute(Ordering.theNewest,null,1,6,8).Data.Products,
+                PowerBank = _productFacad.GetProductForSiteService.Execute(Ordering.theNewest,null,1,6,2).Data.Products,
+                Headphone = _productFacad.GetProductForSiteService.Execute(Ordering.theNewest,null,1,6,5).Data.Products,
+                PhoneCover = _productFacad.GetProductForSiteService.Execute(Ordering.theNewest,null,1,6,4).Data.Products,
             };
+
             return View(homePage);
         }
 
